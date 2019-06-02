@@ -1,0 +1,5 @@
+[package]
+name = "example-app"
+author = "Dvorsky"
+version = "1.0.0"
+bin = "src/index.ts"
