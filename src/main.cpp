@@ -32,19 +32,21 @@ int main(int argc, char *argv[]) {
     package_path = std::filesystem::absolute(package_path);
   }
 
-  // Test if parsing works and I can read config lines
+  std::shared_ptr<cpptoml::table> config;
   try {
-    auto config = cpptoml::parse_file(fmt::format("{}/{}", package_path, MANIFEST_FILE));
+    config = cpptoml::parse_file(fmt::format("{}/{}", package_path, MANIFEST_FILE));
   } catch (...) {
     std::cerr << "Error:\nCould not read package.toml" << std::endl;
     return 1;
   }
 
-  auto *manifest = new Manifest();
+  std::unique_ptr<Manifest> manifest(new Manifest);
 
   if (config) {
     manifest->read_manifest_data(config);
   }
+
+  fmt::print("Name: {}", manifest->name);
 
   return 0;
 }

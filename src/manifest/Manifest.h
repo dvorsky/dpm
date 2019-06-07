@@ -15,4 +15,6 @@ public:
 
   Manifest();
   void read_manifest_data(std::shared_ptr<cpptoml::table> manifest);
+private:
+  void setBin(const cpptoml::option<std::string> &Bin);
 };
